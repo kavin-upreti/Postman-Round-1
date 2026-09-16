@@ -1,0 +1,247 @@
+======================================================================
+1.3  CORRECTNESS HARNESS
+======================================================================
+  causal            max|diff|=0.00e+00   future_leak=False   dead_row=False
+  sliding_w8        max|diff|=0.00e+00   future_leak=False   dead_row=False
+  bigbird_w8g4r2    max|diff|=0.00e+00   future_leak=False   dead_row=False
+  (max|diff| ~0 => mask applied consistently; leak/dead must be False)
+======================================================================
+1.5  BENCHMARK (forward pass, one attention op)
+======================================================================
+  hardware: Tesla T4
+       T       mask       ms    peak_MB
+     512      dense    39.39       12.5
+     512    sliding     0.39       12.5
+     512    bigbird     0.53       12.5
+    1024      dense     0.78       23.2
+    1024    sliding     0.68       23.2
+    1024    bigbird     0.68       23.2
+    2048      dense     6.26       65.1
+    2048    sliding     1.74       65.1
+    2048    bigbird     1.74       65.1
+    4096      dense     6.86      230.8
+    4096    sliding     7.33      230.8
+    4096    bigbird     6.18      230.8
+    8192      dense    22.44      889.3
+    8192    sliding    22.85      889.3
+    8192    bigbird    22.80      889.3
+  (dense OOMs at large T; masking shows no speedup vs dense — see notes)
+  benchmark plot saved: /content/drive/MyDrive/sparse_benchmark.png
+  log-log memory plot saved: /content/drive/MyDrive/sparse_benchmark_loglog.png
+======================================================================
+1.6  SWEEP START  block_size=384 max_iters=4000 n_layer=4
+======================================================================
+----------------------------------------------------------------------
+CONFIG causal  (3.29M, 20.6 min)  mask=causal w=None g=None r=0
+  FINAL train 1.3171  val 1.5458
+  sample:
+
+O Kelf, now to proach your word apspection out,
+When our love, and most that is as 'and;
+So she we'll speer hatte of my the word.
+Give him! all we she will to be my foe.'
+Lady ovel at upon his oath.
+
+VILERIA:
+Plase she is a mad 'monfer. Yes ever a poweroupotion:
+The crist loss I'll well to thee,
+I am distances funing. Being yet.
+
+CLARENCE:
+Clady stoubd; that, lady so one, and let further,
+Whilst call You, bear Glouce.
+
+GLOUCESTER:
+I pardon, betwical evile.
+
+Your gonerant, I be races shall love a
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG sliding_w32  (3.29M, 20.3 min)  mask=sliding w=32 g=None r=0
+  FINAL train 1.2336  val 1.5129
+  sample:
+
+O Kell, not the Clamillo our in jest! Biance,
+Will brother I; and all to her sorts 'long son?
+
+KING RICHARD II:
+But, my lord, and, but honour's let so,
+For this hate of 't: by younces, poor soar,
+This that sta'en nothing sovereigns for thy feet,
+He in more to that but hat hast must been
+For mouth: he did looks for that even yearth? the kin,
+He accused Isaw can brid, to hide, their would
+humber some to our beauteful bring for them.
+Is a talke ever mone. Froth?
+
+JULIET:
+No, I befull myself in his 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG sliding_w64  (3.29M, 20.4 min)  mask=sliding w=64 g=None r=0
+  FINAL train 1.2775  val 1.5299
+  sample:
+
+O KING EDWARD IV:
+Swill he world prod again.
+
+WARWICK:
+You arumend, let's their as gave; so grief out speel.
+While I lieute to dead!
+
+LEONTES:
+When shall I told
+And some'er blood like apother
+afaced intellish with herity
+To made more blood--entidaught in to doth one a hate
+Be a silk'd as my most forewell.
+
+JULIET:
+He's he; 'teard he, love's up as touch so a fill;
+who one, and hear'st be as thou
+offended. Well, Glick, what wasts shall a taked by,
+Pawn o' throne, till-banisface upon myself in his 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG bigbird_w32_g16_r0  (3.29M, 20.4 min)  mask=bigbird w=32 g=16 r=0
+  FINAL train 1.2484  val 1.5188
+  sample:
+
+O Trium, better, I will he would play yield.
+And he told, whom I dare to her spriss'd morrow?
+
+KING RICHARD II:
+But, my lord, and, but heavy Rome; one, Richard
+What some's absencely that will after.
+
+VIRGILIA:
+Say, she is a mad? cousin. Yes excedle on more thy face
+Whers, lest must be not forget forged; who monst of him.
+
+LARENCE:
+Your knees.
+
+LUCIO:
+TIs a childrer, to hide, their will lost him
+that I do put die, here loss and hugh me killed him,
+But I'll take, that littly fight cheek to good Ba
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG bigbird_w64_g16_r0  (3.29M, 20.4 min)  mask=bigbird w=64 g=16 r=0
+  FINAL train 1.2880  val 1.5364
+  sample:
+
+O Kelf, no to speak,
+The punking plag on murder shall that I;
+But as strived in as gandon Warwick!
+Been that with the heaten, and, but heavy Rome;
+Whe was well a many ad's absencel and poor sea,
+For I thanks perped she is somed doors on the eath,
+Vountion a doth one a gstrument;
+Dire cast from off an thing answer of death;
+The woman, love but was tous I that I
+prident their, not be the last-hindream Plock beaution her.
+
+JULIET:
+Go, my gentle be, Pawned, how You night a
+fay for the most fair his 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG bigbird_w64_g1_r0  (3.29M, 20.4 min)  mask=bigbird w=64 g=1 r=0
+  FINAL train 1.2797  val 1.5318
+  sample:
+
+O Kelf, no to speak,
+The pup in apsom o' the prish or that I;
+But ame to have pray 'ancount his receivent
+As well the heart will forbids, would you sea
+For this hate of 't: blood look, poor soak,
+This that soldies, she is somed 'As facced,--
+How a poor of a doth one a hsbour-happile.
+
+CLAUDIO:
+Nay an the louds, be that even yeart
+O the affed.
+
+LUCIO:
+TIs hath laspes,
+And, asknown for yours think and fear peech
+Give and hoose to shall a taller,
+You was the table blood and fair unbiness,
+At of me 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG bigbird_w64_g32_r0  (3.29M, 20.5 min)  mask=bigbird w=64 g=32 r=0
+  FINAL train 1.2908  val 1.5387
+  sample:
+
+O Kell, no to speak,
+The pullike play findly and honour trough?
+
+Nurse:
+I would not you; set your woeedness having.
+
+First Citizen:
+Sirr, woe'er long away with you, some's absencel,
+that with a be is it like leaven she is death?
+And that you have foot more to than i' the old--
+I'll weep to this general; who more no;
+Shall no execut the affect was touch so action;
+And one, asknows for your hangry and fear,
+When God her look's them and a tallene
+Do mine in Grant, bring and fair heads.
+
+MENENIUS:
+W
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG bigbird_w32_g16_r2  (3.29M, 20.5 min)  mask=bigbird w=32 g=16 r=2
+  FINAL train 1.2721  val 1.5098
+  sample:
+
+O Trifles at complain well weil apshephing butcher brother,
+Cut livel to be sine.
+
+LEONTES:
+So true all.
+
+CAMILLO:
+An he knew met, but him!
+
+ROMEO:
+Alas, I till have our'd:
+Whath look, too have all sin, like left.
+Madam 'she's becomform'd,--I should ladom a doth
+Tell the materable beden to 'em off and france
+seal of death; 'terwam and oath,
+He actious Is a crippe without and my
+Call here, this sonse feot perfetting brider.
+
+RICHMOND:
+Come were not was the to-n, bring and falsehood most.
+Thou in 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIG bigbird_w64_g16_r2  (3.29M, 20.6 min)  mask=bigbird w=64 g=16 r=2
+  FINAL train 1.3108  val 1.5390
+  sample:
+
+O Kelenger to speak,
+The openion plage the dustish brother and old,
+As I have pray 'lonoured by received was;
+His feeling dear the backs, woe
+When our writted by my foe.' This young's people.
+
+PERDITITA:
+I she'll not would be due his banish east a poisolato;
+Hath shouldst had a silk death'd mouthful kindness
+shall that him: and the thinkful ubstains and that I
+bein, to heaven; bought yours this name from perfet
+Dicker larkness'd gains of all egglomine.'
+
+GroY:
+And thrives I be rackets to good Ba
+----------------------------------------------------------------------
+======================================================================
+ALL DONE
+======================================================================

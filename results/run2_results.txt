@@ -1,0 +1,30 @@
+CONFIRMATION RUN 2  (seed=1338)
+======================================================================
+1.5b  BENCHMARK (warmup-corrected)   hardware: Tesla T4
+       T       mask       ms    peak_MB
+     512      dense     0.28       11.7
+     512    sliding     0.21       11.7
+     512    bigbird     0.19       11.7
+    1024      dense     0.47       20.1
+    1024    sliding     0.48       20.1
+    1024    bigbird     0.48       20.1
+    2048      dense     1.70       52.6
+    2048    sliding     1.73       52.6
+    2048    bigbird     1.73       52.6
+    4096      dense     6.10      180.5
+    4096    sliding     5.63      180.5
+    4096    bigbird     5.63      180.5
+    8192      dense    22.43      688.0
+    8192    sliding    22.36      688.0
+    8192    bigbird    22.40      688.0
+======================================================================
+CONFIRMATION SWEEP  block_size=384 max_iters=4000 seed=1338
+(compare each val loss to its seed-1337 counterpart from run 1)
+----------------------------------------------------------------------
+causal_s1338              FINAL train 1.2945  val 1.5304
+bigbird_w32_g16_r0_s1338  FINAL train 1.2332  val 1.5051
+bigbird_w32_g16_r2_s1338  FINAL train 1.2837  val 1.5316
+bigbird_w64_g16_r0_s1338  FINAL train 1.2730  val 1.5156
+bigbird_w64_g16_r2_s1338  FINAL train 1.2752  val 1.5126
+======================================================================
+(full per-step logs and text samples in the Colab output; finals recorded here)
