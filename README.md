@@ -1,3 +1,7 @@
+# Claude chat for the same:
+https://claude.ai/share/bbcc41f8-bf03-49e2-9236-71276baedfb4
+
+
 # Sparse Attention from Scratch
 
 A from-scratch implementation and analysis of sparse attention for a
