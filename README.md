@@ -36,7 +36,8 @@ Full reasoning is in `IDEATION.md`; full results and analysis in `WRITEUP.md`.
     benchmark.py      1.5  wall-clock + peak memory vs sequence length, with plots
     train.py          train a single config (1.1 / 1.6 entry point)
     sweep.py          multi-config comparison that produced the results (1.6)
-    WRITEUP.md        the results: measurements and honest analysis (1.7) with the discussion behind the entire task
+    WRITEUP.md        the results: measurements and honest analysis (1.7) 
+    IDEATION.md       the discussion behind the entire task
     COMMIT_HISTORY.md note on how the repo history was assembled
     results/          raw run logs and benchmark plots
 
